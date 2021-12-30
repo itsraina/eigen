@@ -55,7 +55,7 @@ const SmallTileRail: React.FC<Props> = ({
                       HomeAnalytics.artworkThumbnailTapEvent(contextModule, item.slug, index, "single")
                     )
                   }
-                  navigate(item.href!, { passProps: { image: item.image } })
+                  navigate(item.href!)
                 }
               : undefined
           }
@@ -101,8 +101,7 @@ export const SmallTileRailContainer = createFragmentContainer(SmallTileRail, {
       }
       image {
         imageURL
-        width
-        height
+        aspectRatio
       }
     }
   `,

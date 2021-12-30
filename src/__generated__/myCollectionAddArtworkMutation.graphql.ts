@@ -20,12 +20,12 @@ export type MyCollectionCreateArtworkInput = {
     externalImageUrls?: Array<string | null> | null | undefined;
     height?: string | null | undefined;
     isEdition?: boolean | null | undefined;
-    medium?: string | null | undefined;
+    medium: string;
     metric?: string | null | undefined;
     pricePaidCents?: number | null | undefined;
     pricePaidCurrency?: string | null | undefined;
     provenance?: string | null | undefined;
-    title: string;
+    title?: string | null | undefined;
     width?: string | null | undefined;
 };
 export type myCollectionAddArtworkMutationVariables = {

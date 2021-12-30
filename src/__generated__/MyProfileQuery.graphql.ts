@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
-/* @relayHash 676b15b3f4b02934a1375e458d557d85 */
+/* @relayHash 87af08d85f5a2d9bf6251a04566f1913 */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -69,8 +69,7 @@ fragment SmallTileRail_artworks on Artwork {
   }
   image {
     imageURL
-    width
-    height
+    aspectRatio
   }
 }
 */
@@ -338,14 +337,7 @@ return {
                                 "alias": null,
                                 "args": null,
                                 "kind": "ScalarField",
-                                "name": "width",
-                                "storageKey": null
-                              },
-                              {
-                                "alias": null,
-                                "args": null,
-                                "kind": "ScalarField",
-                                "name": "height",
+                                "name": "aspectRatio",
                                 "storageKey": null
                               }
                             ],
@@ -370,7 +362,7 @@ return {
     ]
   },
   "params": {
-    "id": "676b15b3f4b02934a1375e458d557d85",
+    "id": "87af08d85f5a2d9bf6251a04566f1913",
     "metadata": {},
     "name": "MyProfileQuery",
     "operationKind": "query",

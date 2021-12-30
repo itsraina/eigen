@@ -485,8 +485,7 @@ export const ArtworkQueryRenderer: React.FC<{
   isVisible: boolean
   environment?: RelayModernEnvironment
   tracking?: TrackingProp
-  image?: any
-}> = ({ artworkID, environment, image, ...others }) => {
+}> = ({ artworkID, environment, ...others }) => {
   return (
     <RetryErrorBoundary
       render={({ isRetry }) => {
@@ -508,7 +507,7 @@ export const ArtworkQueryRenderer: React.FC<{
               variables: { artworkID },
             }}
             render={{
-              renderPlaceholder: () => <AboveTheFoldPlaceholder image={image} />,
+              renderPlaceholder: () => <AboveTheFoldPlaceholder artworkID={artworkID} />,
               renderComponent: ({ above, below }) => {
                 return (
                   <ArtworkContainer
@@ -531,19 +530,30 @@ export const ArtworkQueryRenderer: React.FC<{
   )
 }
 
-const AboveTheFoldPlaceholder: React.FC<{ image?: any }> = ({ image }) => {
+const AboveTheFoldPlaceholder: React.FC<{ artworkID?: string }> = ({ artworkID }) => {
   const space = useSpace()
   const screenDimensions = useScreenDimensions()
   // The logic for artworkHeight comes from the zeplin spec https://zpl.io/25JLX0Q
   let imageWidth = (screenDimensions.width >= 375 ? 340 : 290) - space(1)
   let imageHeight = screenDimensions.width
 
-  if (image) {
+  const store = defaultEnvironment.getStore()
+
+  const artwork = Object.values(store.getSource().toJSON()).find((e) => e.slug === artworkID) as any
+  const image = store.getSource().get(artwork?.image?.__ref)
+
+  if ((image?.width && image?.height) || image?.aspectRatio) {
     const boundingBox = {
       width: screenDimensions.width,
       height: isPad() ? 460 : screenDimensions.width >= 375 ? 340 : 290,
     }
-    const measurements = getMeasurements({ images: [image], boundingBox })
+
+    const imageSize = {
+      width: (image.width as number) || 100,
+      height: (image.height as number) || 100 * (image.aspectRatio as number),
+    }
+
+    const measurements = getMeasurements({ images: [imageSize], boundingBox })
 
     imageHeight = measurements[0].height
     imageWidth = measurements[0].width
