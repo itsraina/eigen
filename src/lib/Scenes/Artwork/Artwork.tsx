@@ -535,7 +535,7 @@ const AboveTheFoldPlaceholder: React.FC<{ image?: any }> = ({ image }) => {
   // The logic for artworkHeight comes from the zeplin spec https://zpl.io/25JLX0Q
   const artworkHeight = screenDimensions.width >= 375 ? 340 : 290
 
-  const height = image?.height ? Math.min(image.height, artworkHeight) : artworkHeight
+  const height = image?.height ? Math.min((image.height * artworkHeight) / image.width, artworkHeight) : artworkHeight
   const width = image?.width && image?.height ? (image.width * height) / image.height : screenDimensions.width
 
   return (
