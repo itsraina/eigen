@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
-/* @relayHash 315b29932c478a9f9702265c573e4e9e */
+/* @relayHash 069be08bbad99b9cc68be6d4a6e6407f */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -69,6 +69,8 @@ fragment SmallTileRail_artworks on Artwork {
   }
   image {
     imageURL
+    width
+    height
   }
 }
 */
@@ -331,6 +333,20 @@ return {
                                 "kind": "ScalarField",
                                 "name": "imageURL",
                                 "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "width",
+                                "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "height",
+                                "storageKey": null
                               }
                             ],
                             "storageKey": null
@@ -354,7 +370,7 @@ return {
     ]
   },
   "params": {
-    "id": "315b29932c478a9f9702265c573e4e9e",
+    "id": "069be08bbad99b9cc68be6d4a6e6407f",
     "metadata": {},
     "name": "MyProfileRefetchQuery",
     "operationKind": "query",

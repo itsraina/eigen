@@ -20,7 +20,7 @@ import {
 import { QAInfoPanel } from "lib/utils/QAInfo"
 import { ProvideScreenTracking, Schema } from "lib/utils/track"
 import { useScreenDimensions } from "lib/utils/useScreenDimensions"
-import { Box, Separator, Spacer, useSpace } from "palette"
+import { Box, Flex, Separator, Spacer, useSpace } from "palette"
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { ActivityIndicator, FlatList, View } from "react-native"
 import { RefreshControl } from "react-native"
@@ -483,7 +483,8 @@ export const ArtworkQueryRenderer: React.FC<{
   isVisible: boolean
   environment?: RelayModernEnvironment
   tracking?: TrackingProp
-}> = ({ artworkID, environment, ...others }) => {
+  image?: any
+}> = ({ artworkID, environment, image, ...others }) => {
   return (
     <RetryErrorBoundary
       render={({ isRetry }) => {
@@ -505,7 +506,7 @@ export const ArtworkQueryRenderer: React.FC<{
               variables: { artworkID },
             }}
             render={{
-              renderPlaceholder: () => <AboveTheFoldPlaceholder />,
+              renderPlaceholder: () => <AboveTheFoldPlaceholder image={image} />,
               renderComponent: ({ above, below }) => {
                 return (
                   <ArtworkContainer
@@ -528,40 +529,48 @@ export const ArtworkQueryRenderer: React.FC<{
   )
 }
 
-const AboveTheFoldPlaceholder: React.FC<{}> = ({}) => {
+const AboveTheFoldPlaceholder: React.FC<{ image?: any }> = ({ image }) => {
   const space = useSpace()
   const screenDimensions = useScreenDimensions()
   // The logic for artworkHeight comes from the zeplin spec https://zpl.io/25JLX0Q
   const artworkHeight = screenDimensions.width >= 375 ? 340 : 290
 
+  const height = image?.height ? Math.min(image.height, artworkHeight) : artworkHeight
+  const width = image?.width && image?.height ? (image.width * height) / image.height : screenDimensions.width
+
   return (
-    <View style={{ flex: 1, padding: space(2) }}>
+    <Flex py={2}>
       {/* Artwork thumbnail */}
-      <PlaceholderBox height={artworkHeight} />
-      <Spacer mb={2} />
-      {/* save/share buttons */}
-      <View style={{ flexDirection: "row", justifyContent: "center" }}>
-        <PlaceholderText width={50} marginHorizontal={space(1)} />
-        <PlaceholderText width={50} marginHorizontal={space(1)} />
-        <PlaceholderText width={50} marginHorizontal={space(1)} />
-      </View>
-      <Spacer mb={2} />
-      {/* Artist name */}
-      <PlaceholderText width={100} />
-      <Spacer mb={2} />
-      {/* Artwork tombstone details */}
-      <View style={{ width: 130 }}>
-        <PlaceholderRaggedText numLines={4} />
-      </View>
-      <Spacer mb={3} />
-      {/* more junk */}
-      <Separator />
-      <Spacer mb={3} />
-      <PlaceholderRaggedText numLines={3} />
-      <Spacer mb={2} />
-      {/* commerce button */}
-      <PlaceholderBox height={60} />
-    </View>
+      <Flex mx="auto">
+        <PlaceholderBox height={height} width={width} />
+      </Flex>
+
+      <Flex px={2} flex={1}>
+        <Spacer mb={2} />
+        {/* save/share buttons */}
+        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+          <PlaceholderText width={50} marginHorizontal={space(1)} />
+          <PlaceholderText width={50} marginHorizontal={space(1)} />
+          <PlaceholderText width={50} marginHorizontal={space(1)} />
+        </View>
+        <Spacer mb={2} />
+        {/* Artist name */}
+        <PlaceholderText width={100} />
+        <Spacer mb={2} />
+        {/* Artwork tombstone details */}
+        <View style={{ width: 130 }}>
+          <PlaceholderRaggedText numLines={4} />
+        </View>
+        <Spacer mb={3} />
+        {/* more junk */}
+        <Separator />
+        <Spacer mb={3} />
+        <PlaceholderRaggedText numLines={3} />
+        <Spacer mb={2} />
+        {/* commerce button */}
+        <PlaceholderBox height={60} />
+      </Flex>
+    </Flex>
   )
 }
 
