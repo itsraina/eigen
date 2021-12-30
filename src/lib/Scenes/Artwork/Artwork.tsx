@@ -11,6 +11,7 @@ import { defaultEnvironment } from "lib/relay/createEnvironment"
 import { ArtistSeriesMoreSeriesFragmentContainer as ArtistSeriesMoreSeries } from "lib/Scenes/ArtistSeries/ArtistSeriesMoreSeries"
 import { useFeatureFlag } from "lib/store/GlobalStore"
 import { AboveTheFoldQueryRenderer } from "lib/utils/AboveTheFoldQueryRenderer"
+import { isPad } from "lib/utils/hardware"
 import {
   PlaceholderBox,
   PlaceholderRaggedText,
@@ -36,6 +37,7 @@ import { ArtworkHistoryFragmentContainer as ArtworkHistory } from "./Components/
 import { ArtworksInSeriesRailFragmentContainer as ArtworksInSeriesRail } from "./Components/ArtworksInSeriesRail"
 import { CommercialInformationFragmentContainer as CommercialInformation } from "./Components/CommercialInformation"
 import { ContextCardFragmentContainer as ContextCard } from "./Components/ContextCard"
+import { getMeasurements } from "./Components/ImageCarousel/geometry"
 import { OtherWorksFragmentContainer as OtherWorks, populatedGrids } from "./Components/OtherWorks/OtherWorks"
 import { PartnerCardFragmentContainer as PartnerCard } from "./Components/PartnerCard"
 
@@ -533,16 +535,25 @@ const AboveTheFoldPlaceholder: React.FC<{ image?: any }> = ({ image }) => {
   const space = useSpace()
   const screenDimensions = useScreenDimensions()
   // The logic for artworkHeight comes from the zeplin spec https://zpl.io/25JLX0Q
-  const artworkHeight = screenDimensions.width >= 375 ? 340 : 290
+  let imageWidth = (screenDimensions.width >= 375 ? 340 : 290) - space(1)
+  let imageHeight = screenDimensions.width
 
-  const height = image?.height ? Math.min((image.height * artworkHeight) / image.width, artworkHeight) : artworkHeight
-  const width = image?.width && image?.height ? (image.width * height) / image.height : screenDimensions.width
+  if (image) {
+    const boundingBox = {
+      width: screenDimensions.width,
+      height: isPad() ? 460 : screenDimensions.width >= 375 ? 340 : 290,
+    }
+    const measurements = getMeasurements({ images: [image], boundingBox })
+
+    imageHeight = measurements[0].height
+    imageWidth = measurements[0].width
+  }
 
   return (
     <Flex py={2}>
       {/* Artwork thumbnail */}
       <Flex mx="auto">
-        <PlaceholderBox height={height} width={width} />
+        <PlaceholderBox height={imageHeight} width={imageWidth} />
       </Flex>
 
       <Flex px={2} flex={1}>
