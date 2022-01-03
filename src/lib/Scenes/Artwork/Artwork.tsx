@@ -19,8 +19,9 @@ import {
   ProvidePlaceholderContext,
 } from "lib/utils/placeholders"
 import { QAInfoPanel } from "lib/utils/QAInfo"
+import { findRelayRecord, findRelayRecordByRef } from "lib/utils/relayHelpers"
 import { ProvideScreenTracking, Schema } from "lib/utils/track"
-import { useScreenDimensions } from "lib/utils/useScreenDimensions"
+import { ScreenDimensionsWithSafeAreas, useScreenDimensions } from "lib/utils/useScreenDimensions"
 import { Box, Flex, Separator, Spacer, useSpace } from "palette"
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { ActivityIndicator, FlatList, View } from "react-native"
@@ -29,6 +30,7 @@ import { commitMutation, createRefetchContainer, graphql, RelayRefetchProp } fro
 import { TrackingProp } from "react-tracking"
 import usePrevious from "react-use/lib/usePrevious"
 import { RelayModernEnvironment } from "relay-runtime/lib/store/RelayModernEnvironment"
+import { Record } from "relay-runtime/lib/store/RelayStoreTypes"
 import { AboutArtistFragmentContainer as AboutArtist } from "./Components/AboutArtist"
 import { AboutWorkFragmentContainer as AboutWork } from "./Components/AboutWork"
 import { ArtworkDetailsFragmentContainer as ArtworkDetails } from "./Components/ArtworkDetails"
@@ -532,38 +534,14 @@ export const ArtworkQueryRenderer: React.FC<{
 
 const AboveTheFoldPlaceholder: React.FC<{ artworkID?: string }> = ({ artworkID }) => {
   const space = useSpace()
-  const screenDimensions = useScreenDimensions()
-  // The logic for artworkHeight comes from the zeplin spec https://zpl.io/25JLX0Q
-  let imageWidth = (screenDimensions.width >= 375 ? 340 : 290) - space(1)
-  let imageHeight = screenDimensions.width
 
-  const store = defaultEnvironment.getStore()
-
-  const artwork = Object.values(store.getSource().toJSON()).find((e) => e.slug === artworkID) as any
-  const image = store.getSource().get(artwork?.image?.__ref)
-
-  if ((image?.width && image?.height) || image?.aspectRatio) {
-    const boundingBox = {
-      width: screenDimensions.width,
-      height: isPad() ? 460 : screenDimensions.width >= 375 ? 340 : 290,
-    }
-
-    const imageSize = {
-      width: (image.width as number) || 100,
-      height: (image.height as number) || 100 * (image.aspectRatio as number),
-    }
-
-    const measurements = getMeasurements({ images: [imageSize], boundingBox })
-
-    imageHeight = measurements[0].height
-    imageWidth = measurements[0].width
-  }
+  const { width, height } = useImagePlaceholderDimensions(artworkID)
 
   return (
     <Flex py={2}>
       {/* Artwork thumbnail */}
       <Flex mx="auto">
-        <PlaceholderBox height={imageHeight} width={imageWidth} />
+        <PlaceholderBox width={width} height={height} />
       </Flex>
 
       <Flex px={2} flex={1}>
@@ -612,4 +590,53 @@ const BelowTheFoldPlaceholder: React.FC<{}> = ({}) => {
       <Spacer mb={3} />
     </ProvidePlaceholderContext>
   )
+}
+
+const getDefaultImageDimensions = (screenDimensions: ScreenDimensionsWithSafeAreas, space: number) => {
+  // The logic for artworkHeight comes from the zeplin spec https://zpl.io/25JLX0Q
+  return {
+    width: (screenDimensions.width >= 375 ? 340 : 290) - space,
+    height: screenDimensions.width,
+  }
+}
+
+const getImageDimensionsByImage = (
+  screenDimensions: ScreenDimensionsWithSafeAreas,
+  image: { width?: number; height?: number; aspectRatio?: number }
+) => {
+  const boundingBox = {
+    width: screenDimensions.width,
+    height: isPad() ? 460 : screenDimensions.width >= 375 ? 340 : 290,
+  }
+
+  const imageSize = {
+    width: (image.width as number) || 1000 * (image.aspectRatio as number),
+    height: (image.height as number) || 1000,
+  }
+
+  const measurements = getMeasurements({ images: [imageSize], boundingBox })
+
+  return {
+    width: measurements[0].width,
+    height: measurements[0].height,
+  }
+}
+
+const useImagePlaceholderDimensions = (artworkID?: string) => {
+  const space = useSpace()
+  const screenDimensions = useScreenDimensions()
+
+  // Try to find the image for the artwork in the Relay store
+  const artwork = findRelayRecord("slug", artworkID)
+  const imageRef = (artwork?.image as Record)?.__ref as string
+  const image = findRelayRecordByRef(imageRef)
+
+  const hasImageBeenFound = !!(image?.width && image?.height) || !!image?.aspectRatio
+
+  // Calculate the dimensions of the image
+  const { width, height } = hasImageBeenFound
+    ? getImageDimensionsByImage(screenDimensions, image)
+    : getDefaultImageDimensions(screenDimensions, space(1))
+
+  return { width, height }
 }
