@@ -19,7 +19,7 @@ import {
   ProvidePlaceholderContext,
 } from "lib/utils/placeholders"
 import { QAInfoPanel } from "lib/utils/QAInfo"
-import { findRelayRecord, findRelayRecordByRef } from "lib/utils/relayHelpers"
+import { findRelayRecord, findRelayRecordByDataID } from "lib/utils/relayHelpers"
 import { ProvideScreenTracking, Schema } from "lib/utils/track"
 import { ScreenDimensionsWithSafeAreas, useScreenDimensions } from "lib/utils/useScreenDimensions"
 import { Box, Flex, Separator, Spacer, useSpace } from "palette"
@@ -629,7 +629,7 @@ const useImagePlaceholderDimensions = (artworkID?: string) => {
   // Try to find the image for the artwork in the Relay store
   const artwork = findRelayRecord("slug", artworkID)
   const imageRef = (artwork?.image as Record)?.__ref as string
-  const image = findRelayRecordByRef(imageRef)
+  const image = findRelayRecordByDataID(imageRef)
 
   const hasImageBeenFound = !!(image?.width && image?.height) || !!image?.aspectRatio
 

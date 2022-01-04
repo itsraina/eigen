@@ -17,11 +17,11 @@ export const findRelayRecord = (key: string, value: any): Record | undefined => 
 
 /**
  * Find a record fro the Relay store by reference ID
- * (e.g. findRelayRecordByRef(myRecord.__ref))
+ * (e.g. findRelayRecordByDataID(myRecord.__ref))
  */
-export const findRelayRecordByRef = (ref: string): Record | undefined | null => {
+export const findRelayRecordByDataID = (id: string): Record | undefined | null => {
   const store = getStore()
-  const record = store.getSource().get(ref)
+  const record = store.getSource().get(id)
 
   return record
 }
