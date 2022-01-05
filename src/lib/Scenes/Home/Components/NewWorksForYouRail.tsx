@@ -8,7 +8,7 @@ import React, { useImperativeHandle, useRef, useState } from "react"
 import { FlatList, View } from "react-native"
 import { createPaginationContainer, graphql, RelayPaginationProp } from "react-relay"
 import { useTracking } from "react-tracking"
-import { ArtworkTileRailContainer } from "./ArtworkTileRail"
+import { SmallTileRailContainer } from "./SmallTileRail"
 import { RailScrollProps } from "./types"
 
 const PAGE_SIZE = 10
@@ -76,7 +76,7 @@ const NewWorksForYouRail: React.FC<NewWorksForYouRailProps & RailScrollProps> = 
           <SectionTitle title={title} onPress={navigateToNewWorksForYou} />
         </Flex>
         {
-          <ArtworkTileRailContainer
+          <SmallTileRailContainer
             listRef={listRef}
             artworks={artworks as any}
             contextModule={ContextModule.newWorksForYouRail}
@@ -111,7 +111,7 @@ export const NewWorksForYouRailContainer = createPaginationContainer(
           }
           edges {
             node {
-              ...ArtworkTileRail_artworks
+              ...SmallTileRail_artworks
             }
           }
         }

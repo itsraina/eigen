@@ -9,7 +9,7 @@ import { compact } from "lodash"
 import { FlatList, View } from "react-native"
 import { useTracking } from "react-tracking"
 import HomeAnalytics from "../homeAnalytics"
-import { ArtworkTileRailContainer } from "./ArtworkTileRail"
+import { SmallTileRailContainer } from "./SmallTileRail"
 import { RailScrollProps } from "./types"
 
 export function getViewAllUrl(rail: ArtworkRail_rail) {
@@ -92,7 +92,7 @@ const ArtworkRail: React.FC<ArtworkRailProps & RailScrollProps> = ({ title, rail
           }
         />
       </Flex>
-      <ArtworkTileRailContainer
+      <SmallTileRailContainer
         listRef={listRef}
         artworks={artworks}
         imageSize={useSmallTile ? "small" : "large"}
@@ -108,7 +108,7 @@ export const ArtworkRailFragmentContainer = createFragmentContainer(ArtworkRail,
       title
       key
       results {
-        ...ArtworkTileRail_artworks
+        ...SmallTileRail_artworks
         ...GenericGrid_artworks
       }
       context {

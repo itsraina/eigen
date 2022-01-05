@@ -1,5 +1,5 @@
 import * as Analytics from "@artsy/cohesion"
-import { ArtworkTileRail_artworks } from "__generated__/ArtworkTileRail_artworks.graphql"
+import { SmallTileRail_artworks } from "__generated__/SmallTileRail_artworks.graphql"
 import { AboveTheFoldFlatList } from "lib/Components/AboveTheFoldFlatList"
 import { saleMessageOrBidInfo } from "lib/Components/ArtworkGrids/ArtworkGridItem"
 import { ArtworkTileRailCard } from "lib/Components/ArtworkTileRail"
@@ -13,7 +13,7 @@ import { getUrgencyTag } from "../../../utils/getUrgencyTag"
 import HomeAnalytics from "../homeAnalytics"
 
 interface Props {
-  artworks: ArtworkTileRail_artworks
+  artworks: SmallTileRail_artworks
   listRef: React.RefObject<FlatList<any>>
   contextModule: Analytics.ContextModule | undefined
   imageSize?: "small" | "medium" | "large"
@@ -22,7 +22,7 @@ interface Props {
   ListFooterComponent?: ReactElement
 }
 
-const ArtworkTileRail: React.FC<Props> = ({
+const SmallTileRail: React.FC<Props> = ({
   artworks,
   listRef,
   contextModule,
@@ -77,9 +77,9 @@ const ArtworkTileRail: React.FC<Props> = ({
 
 const ListEndComponent = () => <Spacer mr={2} />
 
-export const ArtworkTileRailContainer = createFragmentContainer(ArtworkTileRail, {
+export const SmallTileRailContainer = createFragmentContainer(SmallTileRail, {
   artworks: graphql`
-    fragment ArtworkTileRail_artworks on Artwork @relay(plural: true) {
+    fragment SmallTileRail_artworks on Artwork @relay(plural: true) {
       href
       saleMessage
       artistNames
