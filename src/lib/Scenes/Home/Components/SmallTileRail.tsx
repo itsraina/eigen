@@ -45,6 +45,7 @@ const SmallTileRail: React.FC<Props> = ({
       data={artworks}
       initialNumToRender={4}
       windowSize={3}
+      contentContainerStyle={{ alignItems: "flex-end" }}
       renderItem={({ item, index }) => (
         <ArtworkTileRailCard
           onPress={
@@ -61,7 +62,7 @@ const SmallTileRail: React.FC<Props> = ({
           }
           imageURL={item.image?.imageURL ?? ""}
           imageSize="small"
-          useSquareAspectRatio
+          imageAspectRatio={item.image?.aspectRatio}
           artistNames={item.artistNames}
           saleMessage={saleMessageOrBidInfo({ artwork: item, isSmallTile: true })}
           urgencyTag={item?.sale?.isAuction && !item?.sale?.isClosed ? getUrgencyTag(item?.sale?.endAt) : null}
@@ -101,6 +102,7 @@ export const SmallTileRailContainer = createFragmentContainer(SmallTileRail, {
       }
       image {
         imageURL
+        aspectRatio
       }
     }
   `,

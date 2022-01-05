@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
-/* @relayHash 36d362de223317f8be336c3c42265549 */
+/* @relayHash 856f5d0b920b8e8abd0dc81de80b1672 */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -592,6 +592,7 @@ fragment SmallTileRail_artworks on Artwork {
   }
   image {
     imageURL
+    aspectRatio
   }
 }
 
@@ -850,6 +851,13 @@ v25 = {
 },
 v26 = {
   "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "aspectRatio",
+  "storageKey": null
+},
+v27 = {
+  "alias": null,
   "args": [
     {
       "kind": "Literal",
@@ -860,13 +868,6 @@ v26 = {
   "kind": "ScalarField",
   "name": "url",
   "storageKey": "url(version:\"large\")"
-},
-v27 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "aspectRatio",
-  "storageKey": null
 },
 v28 = {
   "alias": null,
@@ -946,6 +947,7 @@ v33 = [
         "plural": false,
         "selections": [
           (v25/*: any*/),
+          (v26/*: any*/),
           {
             "alias": "aspect_ratio",
             "args": null,
@@ -953,7 +955,6 @@ v33 = [
             "name": "aspectRatio",
             "storageKey": null
           },
-          (v26/*: any*/),
           (v27/*: any*/)
         ],
         "storageKey": null
@@ -1047,7 +1048,7 @@ v34 = [
   }
 ],
 v35 = [
-  (v26/*: any*/)
+  (v27/*: any*/)
 ],
 v36 = {
   "alias": null,
@@ -1379,7 +1380,7 @@ v55 = {
                       "name": "width",
                       "storageKey": null
                     },
-                    (v27/*: any*/)
+                    (v26/*: any*/)
                   ],
                   "storageKey": null
                 }
@@ -2099,7 +2100,7 @@ return {
                                     "name": "url",
                                     "storageKey": "url(version:\"small\")"
                                   },
-                                  (v27/*: any*/)
+                                  (v26/*: any*/)
                                 ],
                                 "storageKey": null
                               },
@@ -2212,7 +2213,8 @@ return {
                         "name": "image",
                         "plural": false,
                         "selections": [
-                          (v25/*: any*/)
+                          (v25/*: any*/),
+                          (v26/*: any*/)
                         ],
                         "storageKey": null
                       },
@@ -2571,7 +2573,7 @@ return {
     ]
   },
   "params": {
-    "id": "36d362de223317f8be336c3c42265549",
+    "id": "856f5d0b920b8e8abd0dc81de80b1672",
     "metadata": {},
     "name": "HomeRefetchQuery",
     "operationKind": "query",

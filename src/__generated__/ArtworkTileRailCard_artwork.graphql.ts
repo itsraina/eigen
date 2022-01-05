@@ -12,6 +12,8 @@ export type ArtworkTileRailCard_artwork = {
     readonly image: {
         readonly imageURL: string | null;
     } | null;
+    readonly height: string | null;
+    readonly width: string | null;
     readonly saleMessage: string | null;
     readonly " $refType": "ArtworkTileRailCard_artwork";
 };
@@ -79,6 +81,20 @@ const node: ReaderFragment = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
+      "name": "height",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "width",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "saleMessage",
       "storageKey": null
     }
@@ -86,5 +102,5 @@ const node: ReaderFragment = {
   "type": "Artwork",
   "abstractKey": null
 };
-(node as any).hash = 'de14e62741b78049e125db859e256e6c';
+(node as any).hash = '20fe047c1762cd2cbbd964fe59e7f3e7';
 export default node;

@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
-/* @relayHash 6da9b595260763274f1ef490bd3ba11d */
+/* @relayHash 7d8d6f3a4558c524856c584cd85da38f */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -93,6 +93,8 @@ fragment ArtworkTileRailCard_artwork on Artwork {
   image {
     imageURL
   }
+  height
+  width
   saleMessage
 }
 
@@ -1529,6 +1531,20 @@ return {
                             ],
                             "storageKey": null
                           },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "height",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "width",
+                            "storageKey": null
+                          },
                           (v13/*: any*/)
                         ],
                         "storageKey": null
@@ -2422,7 +2438,7 @@ return {
     ]
   },
   "params": {
-    "id": "6da9b595260763274f1ef490bd3ba11d",
+    "id": "7d8d6f3a4558c524856c584cd85da38f",
     "metadata": {},
     "name": "VanityURLEntityQuery",
     "operationKind": "query",

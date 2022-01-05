@@ -8,9 +8,18 @@ import styled from "styled-components/native"
 import OpaqueImageView from "../OpaqueImageView/OpaqueImageView"
 
 const IMAGE_SIZES = {
-  small: 120,
-  medium: 160,
-  large: 240,
+  small: {
+    width: 155,
+    maxHeight: 230,
+  },
+  medium: {
+    width: 160,
+    maxHeight: 275, // Calcuated middle number of maxHeight small and large.
+  },
+  large: {
+    width: 295,
+    maxHeight: 320,
+  },
 }
 
 const ArtworkCard = styled.TouchableHighlight.attrs(() => ({
@@ -54,9 +63,10 @@ export const ArtworkTileRailCard: React.FC<ArtworkTileRailCardProps> = ({
     throw new Error("imageAspectRatio is required for non-square images")
   }
 
-  const size = IMAGE_SIZES[imageSize]
-  const imageHeight = size
-  const imageWidth = useSquareAspectRatio ? size : (imageAspectRatio ?? 1) * size
+  const size = IMAGE_SIZES[imageSize].width
+  const maxHeightBasedOnSize = IMAGE_SIZES[imageSize].maxHeight
+  const imageWidth = size
+  const imageHeight = useSquareAspectRatio ? size : size / (imageAspectRatio ?? 1)
   const desiredVersion = useSquareAspectRatio ? "square" : "large"
 
   const imageDisplay = imageURL ? (
@@ -64,13 +74,14 @@ export const ArtworkTileRailCard: React.FC<ArtworkTileRailCardProps> = ({
       style={{
         borderRadius: 2,
         overflow: "hidden",
+        flexDirection: "row",
       }}
     >
       <OpaqueImageView
         imageURL={imageURL.replace(":version", desiredVersion)}
         width={imageWidth}
         height={imageHeight}
-        style={{ flex: 1 }}
+        style={{ flex: 1, maxHeight: maxHeightBasedOnSize }}
       />
       {!!urgencyTag && (
         <Flex
@@ -90,7 +101,12 @@ export const ArtworkTileRailCard: React.FC<ArtworkTileRailCardProps> = ({
       )}
     </View>
   ) : (
-    <Box bg={color("black30")} width={imageWidth} height={imageHeight} style={{ borderRadius: 2 }} />
+    <Box
+      bg={color("black30")}
+      width={imageWidth}
+      height={imageHeight}
+      style={{ borderRadius: 2, maxHeight: maxHeightBasedOnSize }}
+    />
   )
 
   const artistNamesDisplay = artistNames ? (
@@ -168,6 +184,8 @@ export const ArtworkTileRailCardFragmentContainer = createFragmentContainer(Artw
       image {
         imageURL
       }
+      height
+      width
       saleMessage
     }
   `,

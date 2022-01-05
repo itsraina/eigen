@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
-/* @relayHash c6ece6f11db50f40a0c441a91bc0b645 */
+/* @relayHash fc6bdff9c0f505c8566904b548f094fd */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -73,6 +73,8 @@ fragment ArtworkTileRailCard_artwork on Artwork {
   image {
     imageURL
   }
+  height
+  width
   saleMessage
 }
 
@@ -1052,6 +1054,20 @@ return {
                         ],
                         "storageKey": null
                       },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "height",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "width",
+                        "storageKey": null
+                      },
                       (v12/*: any*/)
                     ],
                     "storageKey": null
@@ -1734,7 +1750,7 @@ return {
     ]
   },
   "params": {
-    "id": "c6ece6f11db50f40a0c441a91bc0b645",
+    "id": "fc6bdff9c0f505c8566904b548f094fd",
     "metadata": {
       "relayTestingSelectionTypeInfo": {
         "fair": (v30/*: any*/),
@@ -1986,6 +2002,7 @@ return {
         "fair.followedArtistArtworks.edges.__typename": (v32/*: any*/),
         "fair.followedArtistArtworks.edges.artwork": (v37/*: any*/),
         "fair.followedArtistArtworks.edges.artwork.artistNames": (v31/*: any*/),
+        "fair.followedArtistArtworks.edges.artwork.height": (v31/*: any*/),
         "fair.followedArtistArtworks.edges.artwork.href": (v31/*: any*/),
         "fair.followedArtistArtworks.edges.artwork.id": (v33/*: any*/),
         "fair.followedArtistArtworks.edges.artwork.image": (v34/*: any*/),
@@ -1993,6 +2010,7 @@ return {
         "fair.followedArtistArtworks.edges.artwork.internalID": (v33/*: any*/),
         "fair.followedArtistArtworks.edges.artwork.saleMessage": (v31/*: any*/),
         "fair.followedArtistArtworks.edges.artwork.slug": (v33/*: any*/),
+        "fair.followedArtistArtworks.edges.artwork.width": (v31/*: any*/),
         "fair.followedArtistArtworks.id": (v33/*: any*/),
         "fair.id": (v33/*: any*/),
         "fair.image": (v34/*: any*/),

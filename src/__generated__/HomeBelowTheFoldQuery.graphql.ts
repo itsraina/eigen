@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
-/* @relayHash 5fbfb1de4814040975e5ac3f82152443 */
+/* @relayHash afaaf8a3cbbe8f027cf6c0da59b016e8 */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -415,6 +415,7 @@ fragment SmallTileRail_artworks on Artwork {
   }
   image {
     imageURL
+    aspectRatio
   }
 }
 
@@ -551,6 +552,13 @@ v12 = {
 },
 v13 = {
   "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "aspectRatio",
+  "storageKey": null
+},
+v14 = {
+  "alias": null,
   "args": [
     {
       "kind": "Literal",
@@ -561,13 +569,6 @@ v13 = {
   "kind": "ScalarField",
   "name": "url",
   "storageKey": "url(version:\"large\")"
-},
-v14 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "aspectRatio",
-  "storageKey": null
 },
 v15 = {
   "alias": null,
@@ -731,6 +732,7 @@ v19 = [
             "name": "imageURL",
             "storageKey": null
           },
+          (v13/*: any*/),
           {
             "alias": "aspect_ratio",
             "args": null,
@@ -738,7 +740,6 @@ v19 = [
             "name": "aspectRatio",
             "storageKey": null
           },
-          (v13/*: any*/),
           (v14/*: any*/)
         ],
         "storageKey": null
@@ -877,7 +878,7 @@ v24 = {
   "name": "image",
   "plural": false,
   "selections": [
-    (v13/*: any*/)
+    (v14/*: any*/)
   ],
   "storageKey": null
 },
@@ -1544,7 +1545,7 @@ return {
                                 "name": "width",
                                 "storageKey": null
                               },
-                              (v14/*: any*/)
+                              (v13/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -1832,7 +1833,7 @@ return {
     ]
   },
   "params": {
-    "id": "5fbfb1de4814040975e5ac3f82152443",
+    "id": "afaaf8a3cbbe8f027cf6c0da59b016e8",
     "metadata": {},
     "name": "HomeBelowTheFoldQuery",
     "operationKind": "query",

@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
-/* @relayHash e7639181bed16646fb2556e926c3665f */
+/* @relayHash 1d66a5ef63f7a963c1f3686c082a528f */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -28,6 +28,8 @@ export type FairFollowedArtistsRailTestsQueryRawResponse = {
                     readonly image: ({
                         readonly imageURL: string | null;
                     }) | null;
+                    readonly height: string | null;
+                    readonly width: string | null;
                     readonly saleMessage: string | null;
                 }) | null;
             }) | null> | null;
@@ -62,6 +64,8 @@ fragment ArtworkTileRailCard_artwork on Artwork {
   image {
     imageURL
   }
+  height
+  width
   saleMessage
 }
 
@@ -249,6 +253,20 @@ return {
                         "alias": null,
                         "args": null,
                         "kind": "ScalarField",
+                        "name": "height",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "width",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
                         "name": "saleMessage",
                         "storageKey": null
                       }
@@ -269,7 +287,7 @@ return {
     ]
   },
   "params": {
-    "id": "e7639181bed16646fb2556e926c3665f",
+    "id": "1d66a5ef63f7a963c1f3686c082a528f",
     "metadata": {
       "relayTestingSelectionTypeInfo": {
         "fair": {
@@ -297,6 +315,7 @@ return {
           "type": "Artwork"
         },
         "fair.followedArtistArtworks.edges.artwork.artistNames": (v5/*: any*/),
+        "fair.followedArtistArtworks.edges.artwork.height": (v5/*: any*/),
         "fair.followedArtistArtworks.edges.artwork.href": (v5/*: any*/),
         "fair.followedArtistArtworks.edges.artwork.id": (v6/*: any*/),
         "fair.followedArtistArtworks.edges.artwork.image": {
@@ -309,6 +328,7 @@ return {
         "fair.followedArtistArtworks.edges.artwork.internalID": (v6/*: any*/),
         "fair.followedArtistArtworks.edges.artwork.saleMessage": (v5/*: any*/),
         "fair.followedArtistArtworks.edges.artwork.slug": (v6/*: any*/),
+        "fair.followedArtistArtworks.edges.artwork.width": (v5/*: any*/),
         "fair.followedArtistArtworks.id": (v6/*: any*/),
         "fair.id": (v6/*: any*/),
         "fair.internalID": (v6/*: any*/),
