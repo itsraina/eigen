@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
-/* @relayHash 8ab28cb3cb9f2822160a6acd572e5096 */
+/* @relayHash 1cae65da698fd8a26f80afb25228c76f */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -32,25 +32,7 @@ query NewWorksForYouRailQuery(
   }
 }
 
-fragment NewWorksForYouRail_me_1G22uz on Me {
-  newWorksByInterestingArtists(first: $count, after: $cursor) {
-    pageInfo {
-      hasNextPage
-      startCursor
-      endCursor
-    }
-    edges {
-      node {
-        ...SmallTileRail_artworks
-        id
-        __typename
-      }
-      cursor
-    }
-  }
-}
-
-fragment SmallTileRail_artworks on Artwork {
+fragment ArtworkTileRail_artworks on Artwork {
   href
   saleMessage
   artistNames
@@ -79,6 +61,24 @@ fragment SmallTileRail_artworks on Artwork {
   image {
     imageURL
     aspectRatio
+  }
+}
+
+fragment NewWorksForYouRail_me_1G22uz on Me {
+  newWorksByInterestingArtists(first: $count, after: $cursor) {
+    pageInfo {
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    edges {
+      node {
+        ...ArtworkTileRail_artworks
+        id
+        __typename
+      }
+      cursor
+    }
   }
 }
 */
@@ -434,7 +434,7 @@ return {
     ]
   },
   "params": {
-    "id": "8ab28cb3cb9f2822160a6acd572e5096",
+    "id": "1cae65da698fd8a26f80afb25228c76f",
     "metadata": {},
     "name": "NewWorksForYouRailQuery",
     "operationKind": "query",

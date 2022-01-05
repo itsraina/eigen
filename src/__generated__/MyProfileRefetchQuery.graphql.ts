@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
-/* @relayHash accae00267d4e658a2ef07dfc457cd93 */
+/* @relayHash e0533dfb408a604e0ebf6d3408f71d72 */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -26,22 +26,7 @@ query MyProfileRefetchQuery {
   }
 }
 
-fragment MyProfile_me on Me {
-  name
-  createdAt
-  followsAndSaves {
-    artworksConnection(first: 10, private: true) {
-      edges {
-        node {
-          id
-          ...SmallTileRail_artworks
-        }
-      }
-    }
-  }
-}
-
-fragment SmallTileRail_artworks on Artwork {
+fragment ArtworkTileRail_artworks on Artwork {
   href
   saleMessage
   artistNames
@@ -70,6 +55,21 @@ fragment SmallTileRail_artworks on Artwork {
   image {
     imageURL
     aspectRatio
+  }
+}
+
+fragment MyProfile_me on Me {
+  name
+  createdAt
+  followsAndSaves {
+    artworksConnection(first: 10, private: true) {
+      edges {
+        node {
+          id
+          ...ArtworkTileRail_artworks
+        }
+      }
+    }
   }
 }
 */
@@ -362,7 +362,7 @@ return {
     ]
   },
   "params": {
-    "id": "accae00267d4e658a2ef07dfc457cd93",
+    "id": "e0533dfb408a604e0ebf6d3408f71d72",
     "metadata": {},
     "name": "MyProfileRefetchQuery",
     "operationKind": "query",

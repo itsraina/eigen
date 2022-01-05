@@ -1,5 +1,5 @@
 import * as Analytics from "@artsy/cohesion"
-import { SmallTileRail_artworks } from "__generated__/SmallTileRail_artworks.graphql"
+import { ArtworkTileRail_artworks } from "__generated__/ArtworkTileRail_artworks.graphql"
 import { AboveTheFoldFlatList } from "lib/Components/AboveTheFoldFlatList"
 import { saleMessageOrBidInfo } from "lib/Components/ArtworkGrids/ArtworkGridItem"
 import { ArtworkTileRailCard } from "lib/Components/ArtworkTileRail"
@@ -13,18 +13,20 @@ import { getUrgencyTag } from "../../../utils/getUrgencyTag"
 import HomeAnalytics from "../homeAnalytics"
 
 interface Props {
-  artworks: SmallTileRail_artworks
+  artworks: ArtworkTileRail_artworks
   listRef: React.RefObject<FlatList<any>>
   contextModule: Analytics.ContextModule | undefined
+  imageSize?: "small" | "medium" | "large"
   onEndReached?: () => void
   onEndReachedThreshold?: number
   ListFooterComponent?: ReactElement
 }
 
-const SmallTileRail: React.FC<Props> = ({
+const ArtworkTileRail: React.FC<Props> = ({
   artworks,
   listRef,
   contextModule,
+  imageSize,
   onEndReached,
   onEndReachedThreshold,
   ListFooterComponent = ListEndComponent,
@@ -61,7 +63,7 @@ const SmallTileRail: React.FC<Props> = ({
               : undefined
           }
           imageURL={item.image?.imageURL ?? ""}
-          imageSize="small"
+          imageSize={imageSize ?? "small"}
           imageAspectRatio={item.image?.aspectRatio}
           artistNames={item.artistNames}
           saleMessage={saleMessageOrBidInfo({ artwork: item, isSmallTile: true })}
@@ -75,9 +77,9 @@ const SmallTileRail: React.FC<Props> = ({
 
 const ListEndComponent = () => <Spacer mr={2} />
 
-export const SmallTileRailContainer = createFragmentContainer(SmallTileRail, {
+export const ArtworkTileRailContainer = createFragmentContainer(ArtworkTileRail, {
   artworks: graphql`
-    fragment SmallTileRail_artworks on Artwork @relay(plural: true) {
+    fragment ArtworkTileRail_artworks on Artwork @relay(plural: true) {
       href
       saleMessage
       artistNames

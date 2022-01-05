@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
-/* @relayHash 856f5d0b920b8e8abd0dc81de80b1672 */
+/* @relayHash ba4088dd7e60cf58ece9f3bc54a6a3bd */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -157,7 +157,7 @@ fragment ArtworkRail_rail on HomePageArtworkModule {
   title
   key
   results {
-    ...SmallTileRail_artworks
+    ...ArtworkTileRail_artworks
     ...GenericGrid_artworks
     id
   }
@@ -195,6 +195,38 @@ fragment ArtworkRail_rail on HomePageArtworkModule {
       __isNode: __typename
       id
     }
+  }
+}
+
+fragment ArtworkTileRail_artworks on Artwork {
+  href
+  saleMessage
+  artistNames
+  slug
+  internalID
+  sale {
+    isAuction
+    isClosed
+    displayTimelyAt
+    endAt
+    id
+  }
+  saleArtwork {
+    counts {
+      bidderPositions
+    }
+    currentBid {
+      display
+    }
+    id
+  }
+  partner {
+    name
+    id
+  }
+  image {
+    imageURL
+    aspectRatio
   }
 }
 
@@ -435,7 +467,7 @@ fragment NewWorksForYouRail_me on Me {
     }
     edges {
       node {
-        ...SmallTileRail_artworks
+        ...ArtworkTileRail_artworks
         id
         __typename
       }
@@ -561,38 +593,6 @@ fragment ShowsRail_showsConnection on ShowConnection {
       ...ShowCard_show
       id
     }
-  }
-}
-
-fragment SmallTileRail_artworks on Artwork {
-  href
-  saleMessage
-  artistNames
-  slug
-  internalID
-  sale {
-    isAuction
-    isClosed
-    displayTimelyAt
-    endAt
-    id
-  }
-  saleArtwork {
-    counts {
-      bidderPositions
-    }
-    currentBid {
-      display
-    }
-    id
-  }
-  partner {
-    name
-    id
-  }
-  image {
-    imageURL
-    aspectRatio
   }
 }
 
@@ -2573,7 +2573,7 @@ return {
     ]
   },
   "params": {
-    "id": "856f5d0b920b8e8abd0dc81de80b1672",
+    "id": "ba4088dd7e60cf58ece9f3bc54a6a3bd",
     "metadata": {},
     "name": "HomeRefetchQuery",
     "operationKind": "query",

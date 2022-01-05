@@ -4,7 +4,7 @@
 
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type SmallTileRail_artworks = ReadonlyArray<{
+export type ArtworkTileRail_artworks = ReadonlyArray<{
     readonly href: string | null;
     readonly saleMessage: string | null;
     readonly artistNames: string | null;
@@ -31,12 +31,12 @@ export type SmallTileRail_artworks = ReadonlyArray<{
         readonly imageURL: string | null;
         readonly aspectRatio: number;
     } | null;
-    readonly " $refType": "SmallTileRail_artworks";
+    readonly " $refType": "ArtworkTileRail_artworks";
 }>;
-export type SmallTileRail_artworks$data = SmallTileRail_artworks;
-export type SmallTileRail_artworks$key = ReadonlyArray<{
-    readonly " $data"?: SmallTileRail_artworks$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SmallTileRail_artworks">;
+export type ArtworkTileRail_artworks$data = ArtworkTileRail_artworks;
+export type ArtworkTileRail_artworks$key = ReadonlyArray<{
+    readonly " $data"?: ArtworkTileRail_artworks$data | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"ArtworkTileRail_artworks">;
 }>;
 
 
@@ -47,7 +47,7 @@ const node: ReaderFragment = {
   "metadata": {
     "plural": true
   },
-  "name": "SmallTileRail_artworks",
+  "name": "ArtworkTileRail_artworks",
   "selections": [
     {
       "alias": null,
@@ -217,5 +217,5 @@ const node: ReaderFragment = {
   "type": "Artwork",
   "abstractKey": null
 };
-(node as any).hash = '41240b93e3968ac055105ccf501f7c42';
+(node as any).hash = 'f1b15f001a93cdfd1a3bb3df91b165e5';
 export default node;
