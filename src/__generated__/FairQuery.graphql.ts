@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
-/* @relayHash 4cbc63aaeff6665ad4e89b5bf72327f1 */
+/* @relayHash 3b68c7082b25465b8c1af678fd1288f2 */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -73,8 +73,6 @@ fragment ArtworkTileRailCard_artwork on Artwork {
   image {
     imageURL
   }
-  height
-  width
   saleMessage
 }
 
@@ -940,20 +938,6 @@ return {
                         ],
                         "storageKey": null
                       },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "height",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "width",
-                        "storageKey": null
-                      },
                       (v12/*: any*/)
                     ],
                     "storageKey": null
@@ -1636,7 +1620,7 @@ return {
     ]
   },
   "params": {
-    "id": "4cbc63aaeff6665ad4e89b5bf72327f1",
+    "id": "3b68c7082b25465b8c1af678fd1288f2",
     "metadata": {},
     "name": "FairQuery",
     "operationKind": "query",

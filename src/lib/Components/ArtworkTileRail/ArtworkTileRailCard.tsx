@@ -184,8 +184,6 @@ export const ArtworkTileRailCardFragmentContainer = createFragmentContainer(Artw
       image {
         imageURL
       }
-      height
-      width
       saleMessage
     }
   `,
