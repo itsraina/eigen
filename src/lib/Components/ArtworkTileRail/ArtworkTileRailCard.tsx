@@ -9,15 +9,9 @@ import styled from "styled-components/native"
 import OpaqueImageView from "../OpaqueImageView/OpaqueImageView"
 
 const IMAGE_SIZES = {
-  small: {
-    width: 155,
-  },
-  medium: {
-    width: 160,
-  },
-  large: {
-    width: 295,
-  },
+  small: 155,
+  medium: 160,
+  large: 295,
 }
 
 const ArtworkCard = styled.TouchableHighlight.attrs(() => ({
@@ -61,7 +55,7 @@ export const ArtworkTileRailCard: React.FC<ArtworkTileRailCardProps> = ({
     throw new Error("imageAspectRatio is required for non-square images")
   }
 
-  const size = IMAGE_SIZES[imageSize].width
+  const size = IMAGE_SIZES[imageSize]
   const imageWidth = size
   const imageHeight = useSquareAspectRatio ? size : size / (imageAspectRatio ?? 1)
   const desiredVersion = useSquareAspectRatio ? "square" : "large"
