@@ -520,23 +520,20 @@ const BelowTheFoldPlaceholder: React.FC = () => {
 const HomePlaceholder: React.FC<{}> = () => {
   const enableViewingRooms = useFeatureFlag("AREnableViewingRooms")
 
-  const IMAGE_PLACE_HOLDER_SIZES = {
+  const IMAGE_PLACEHOLDER_SIZES = {
     small: {
       width: 155,
-      maxHeight: 230,
+      height: 230,
     },
     large: {
       width: 295,
-      maxHeight: 320,
+      height: 320,
     },
   }
-  const smallImagePlaceHolderWidth = IMAGE_PLACE_HOLDER_SIZES.small.width
-  const largeImagePlaceHolderWidth = IMAGE_PLACE_HOLDER_SIZES.large.width
-
-  const imagePlaceHolderAspectRatio = 0.7
-
-  const smallImagePlaceHolderHeight = IMAGE_PLACE_HOLDER_SIZES.small.width / (imagePlaceHolderAspectRatio ?? 1)
-  const largeImagePlaceHolderHeight = IMAGE_PLACE_HOLDER_SIZES.large.width / (imagePlaceHolderAspectRatio ?? 1)
+  const smallImagePlaceholderWidth = IMAGE_PLACEHOLDER_SIZES.small.width
+  const largeImagePlaceholderWidth = IMAGE_PLACEHOLDER_SIZES.large.width
+  const smallImagePlaceholderHeight = IMAGE_PLACEHOLDER_SIZES.small.height
+  const largeImagePlaceholderHeight = IMAGE_PLACEHOLDER_SIZES.large.height
 
   return (
     <Flex>
@@ -555,9 +552,9 @@ const HomePlaceholder: React.FC<{}> = () => {
             <Join separator={<Spacer width={15} />}>
               {times(3 + useMemoizedRandom() * 10).map((index) => (
                 <Flex key={index}>
-                  <PlaceholderBox height={smallImagePlaceHolderHeight} width={smallImagePlaceHolderWidth} />
+                  <PlaceholderBox height={smallImagePlaceholderHeight} width={smallImagePlaceholderWidth} />
                   <Spacer mb={2} />
-                  <PlaceholderText width={120} />
+                  <PlaceholderText width={smallImagePlaceholderWidth} />
                   <RandomWidthPlaceholderText minWidth={30} maxWidth={90} />
                   <ModuleSeparator />
                 </Flex>
@@ -573,7 +570,7 @@ const HomePlaceholder: React.FC<{}> = () => {
         <Flex flexDirection="row" mt={1}>
           <Join separator={<Spacer width={15} />}>
             {times(10).map((index) => (
-              <PlaceholderBox key={index} height={largeImagePlaceHolderHeight} width={largeImagePlaceHolderWidth} />
+              <PlaceholderBox key={index} height={largeImagePlaceholderHeight} width={largeImagePlaceholderWidth} />
             ))}
           </Join>
           <ModuleSeparator />
