@@ -1,5 +1,6 @@
 import { themeGet } from "@styled-system/theme-get"
 import { ArtworkTileRailCard_artwork } from "__generated__/ArtworkTileRailCard_artwork.graphql"
+import { useSizeToFitScreen } from "lib/utils/useSizeToFit"
 import { Box, Flex, Sans, Text, useColor } from "palette"
 import React from "react"
 import { GestureResponderEvent, View } from "react-native"
@@ -10,15 +11,12 @@ import OpaqueImageView from "../OpaqueImageView/OpaqueImageView"
 const IMAGE_SIZES = {
   small: {
     width: 155,
-    maxHeight: 230,
   },
   medium: {
     width: 160,
-    maxHeight: 275, // Calcuated middle number of maxHeight small and large.
   },
   large: {
     width: 295,
-    maxHeight: 320,
   },
 }
 
@@ -64,10 +62,14 @@ export const ArtworkTileRailCard: React.FC<ArtworkTileRailCardProps> = ({
   }
 
   const size = IMAGE_SIZES[imageSize].width
-  const maxHeightBasedOnSize = IMAGE_SIZES[imageSize].maxHeight
   const imageWidth = size
   const imageHeight = useSquareAspectRatio ? size : size / (imageAspectRatio ?? 1)
   const desiredVersion = useSquareAspectRatio ? "square" : "large"
+
+  const { width, height } = useSizeToFitScreen({
+    width: imageWidth,
+    height: imageHeight,
+  })
 
   const imageDisplay = imageURL ? (
     <View
@@ -77,12 +79,7 @@ export const ArtworkTileRailCard: React.FC<ArtworkTileRailCardProps> = ({
         flexDirection: "row",
       }}
     >
-      <OpaqueImageView
-        imageURL={imageURL.replace(":version", desiredVersion)}
-        width={imageWidth}
-        height={imageHeight}
-        style={{ flex: 1, maxHeight: maxHeightBasedOnSize }}
-      />
+      <OpaqueImageView imageURL={imageURL.replace(":version", desiredVersion)} width={width} height={height} />
       {!!urgencyTag && (
         <Flex
           backgroundColor="white"
@@ -101,12 +98,7 @@ export const ArtworkTileRailCard: React.FC<ArtworkTileRailCardProps> = ({
       )}
     </View>
   ) : (
-    <Box
-      bg={color("black30")}
-      width={imageWidth}
-      height={imageHeight}
-      style={{ borderRadius: 2, maxHeight: maxHeightBasedOnSize }}
-    />
+    <Box bg={color("black30")} width={imageWidth} height={imageHeight} style={{ borderRadius: 2 }} />
   )
 
   const artistNamesDisplay = artistNames ? (
