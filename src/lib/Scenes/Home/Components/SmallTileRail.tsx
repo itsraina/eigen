@@ -1,8 +1,8 @@
 import * as Analytics from "@artsy/cohesion"
 import { SmallTileRail_artworks } from "__generated__/SmallTileRail_artworks.graphql"
-import { AboveTheFoldFlatList } from "lib/Components/AboveTheFoldFlatList"
 import { saleMessageOrBidInfo } from "lib/Components/ArtworkGrids/ArtworkGridItem"
 import { ArtworkTileRailCard } from "lib/Components/ArtworkTileRail"
+import { PrefetchFlatList } from "lib/Components/PrefetchFlatList"
 import { navigate } from "lib/navigation/navigate"
 import { Spacer } from "palette"
 import React, { ReactElement } from "react"
@@ -33,8 +33,11 @@ const SmallTileRail: React.FC<Props> = ({
 }) => {
   const tracking = useTracking()
 
+  const numberOfArtworksForSmallSizeImage = 30
+  const numberOfArtworksForLargeSizeImage = 12
+
   return (
-    <AboveTheFoldFlatList
+    <PrefetchFlatList
       onEndReached={onEndReached}
       onEndReachedThreshold={onEndReachedThreshold}
       prefetchUrlExtractor={(item) => item?.href!}
@@ -46,7 +49,7 @@ const SmallTileRail: React.FC<Props> = ({
       showsHorizontalScrollIndicator={false}
       data={artworks}
       initialNumToRender={4}
-      windowSize={3}
+      windowSize={imageSize === "small" ? numberOfArtworksForSmallSizeImage : numberOfArtworksForLargeSizeImage} // Based on number of artworks required in a rail
       contentContainerStyle={{ alignItems: "flex-end" }}
       renderItem={({ item, index }) => (
         <ArtworkTileRailCard

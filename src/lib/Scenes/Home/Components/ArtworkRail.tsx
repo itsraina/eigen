@@ -33,7 +33,7 @@ export function getViewAllUrl(rail: ArtworkRail_rail) {
 
 /*
 Your Active Bids
-New Works For You
+New Works by Followed Artists
 Recently Viewed
 Recently Saved
 */
@@ -109,7 +109,6 @@ export const ArtworkRailFragmentContainer = createFragmentContainer(ArtworkRail,
       key
       results {
         ...SmallTileRail_artworks
-        ...GenericGrid_artworks
       }
       context {
         ... on HomePageRelatedArtistArtworkModule {
