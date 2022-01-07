@@ -246,6 +246,7 @@ const Home = (props: Props) => {
                     title={item.title}
                     rail={item.data || null}
                     scrollRef={scrollRefs.current[index]}
+                    mb={MODULE_SEPARATOR_HEIGHT}
                   />
                 )
               case "auction-results":
@@ -281,6 +282,7 @@ const Home = (props: Props) => {
                     title={item.title}
                     me={item.data}
                     scrollRef={scrollRefs.current[index]}
+                    mb={MODULE_SEPARATOR_HEIGHT}
                   />
                 )
               case "recommended-artists":
