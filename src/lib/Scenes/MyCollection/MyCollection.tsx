@@ -237,7 +237,7 @@ const MyCollection: React.FC<{
             if (isNaN(a.pricePaid?.minor)) {
               return false
             }
-            const pricePaid = a.pricePaid?.minor === 0 ? 0 : a.pricePaid?.minor / 100
+            const pricePaid = a.pricePaid?.minor / 100
             return pricePaid >= lowerBound && pricePaid <= upperBound
           })
         },
